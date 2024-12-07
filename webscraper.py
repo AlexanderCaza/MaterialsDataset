@@ -27,18 +27,23 @@ def get_urls_from_container(html, url):
         href = child['href']
         root = os.getenv("ROOT")
         print(href)
-        if href.startswith('../', 0, 3):
-            href = href.replace('..', root, 1)
+        if href.startswith('../..', 0, 3):
+            href = href.replace('../..', root, 1)
+            urls.append(href)
             print(href)
+        elif href.startswith('../', 0, 3):
+            href = href.replace('..', root, 1)
+            urls.append(href)
+            print(href)
+        elif href.startswith('./', 0, 3):
+            href = href.replace('.', root, 1)
             second_level_html = get_webpage_contents(href)
             try:
                 second_level_hrefs = get_urls_from_container(second_level_html, url)
                 urls.extend(second_level_hrefs)
             except:
                 urls.append(href)
-        elif href.startswith('./', 0, 3):
-            href = href.replace('.', root, 1)
-            urls.append(href)
+            print(href)
     return urls
 
 def main():
