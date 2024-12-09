@@ -49,7 +49,7 @@ def save_table(url):
     containers = soup.find_all("table")
     for container in containers:
         table_name = container.find("caption").string.replace(' ', '_')
-        file = open("./tables/" + table_name + ".csv", 'a')
+        file = open("./tables/" + table_name + ".csv", 'w')
         headers_intermediate = container.find_all("th")
         for header_intermediate in headers_intermediate:
             try:
@@ -65,9 +65,12 @@ def save_table(url):
                     string_candidates = header_intermediate.descendants
                     string_assembled = ""
                     for string_candidate in string_candidates:
-                        if type(string_candidate) == "NavigableString":
+                        if type(string_candidate) == type(BeautifulSoup("<b>e</b>").b.string, 'html.parser'):
                             string_assembled += string_candidate
+                            print(True)
                     header = string_assembled
+                    print(table_name)
+                    print(header)
             file.write(header.strip() + ",")
 
 
