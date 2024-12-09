@@ -48,30 +48,32 @@ def save_table(url):
     soup = BeautifulSoup(html, "html.parser")
     containers = soup.find_all("table")
     for container in containers:
+        # Saving headers
         table_name = container.find("caption").string.replace(' ', '_')
         file = open("./tables/" + table_name + ".csv", 'w')
         headers_intermediate = container.find_all("th")
         for header_intermediate in headers_intermediate:
+            # Header with button
             try:
                 header = header_intermediate.button.contents[0]
                 if (header == None):
                     raise Exception("No Contents")
             except:
+                # Regular header
                 try:
                     header = header_intermediate.string
                     if (header == None):
                         raise Exception("No Contents")
+                # Multi-section table header
                 except:
                     string_candidates = header_intermediate.descendants
                     string_assembled = ""
                     for string_candidate in string_candidates:
                         if type(string_candidate) == type(BeautifulSoup("<b>e</b>").b.string, 'html.parser'):
                             string_assembled += string_candidate
-                            print(True)
                     header = string_assembled
-                    print(table_name)
-                    print(header)
             file.write(header.strip() + ",")
+
 
 
 def download_tables(urls):
