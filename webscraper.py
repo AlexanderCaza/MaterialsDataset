@@ -6,6 +6,7 @@
 # Imports
 # importing os module for environment variables
 import os
+from types import NoneType
 from xml.etree.ElementTree import fromstring, tostring
 
 # importing necessary functions from dotenv library
@@ -43,38 +44,94 @@ def get_urls_from_container(html, url):
     return urls
 
 
+def get_header(header_intermediate):
+    try:
+        header = header_intermediate.button.contents[0]
+        if (header == None):
+            raise Exception("No Contents")
+        return header
+    except:
+        # Regular header
+        try:
+            header = header_intermediate.string
+            if (header == None):
+                raise Exception("No Contents")
+            return header
+        # Multi-section table header
+        except:
+            # header with button
+            string_candidates = header_intermediate.descendants
+            string_assembled = ""
+            for string_candidate in string_candidates:
+                if type(string_candidate) == type(BeautifulSoup("<b>e</b>", 'html.parser').b.string):
+                    string_assembled += string_candidate
+            header = string_assembled
+            return header
+
+
+def save_data(container, file_name):
+    write_file = open(file_name, 'a')
+    table_body = container.find("tbody")
+    rows = table_body.find_all("tr")
+    # Whether file has subheadings embedded as "tr"s
+    cleanup_needed = False
+    for row in rows:
+        cells = row.find_all("td")
+        if len(cells) == 1:
+            cleanup_needed = True
+        for cell in cells:
+            cell_data = cell.string
+            if (type(cell_data) == NoneType):
+                cell_data = ""
+            print(file_name)
+            print(cell_data)
+            write_file.write(cell_data + ",")
+        write_file.write("\n")
+    if cleanup_needed == True:
+        read_file = open(file_name, 'r')
+        new_lines = []
+        # Cleaning up tables with subheadings embedded as "tr"s
+        # Returning to start of file
+        read_file.seek(0)
+        # Reading first line and adding additional
+        header = read_file.readline()
+        new_header = header.replace("\n", "Additional_Info,\n")
+        # Adding new header
+        new_lines.append(new_header)
+        # Going through data rows and shifting subheaders to Additional Info column
+        subheader = ""
+        for line in read_file.readlines():
+            if line.count(',') < 2:
+                subheader = line
+            else:
+                new_line = line.replace("\n", subheader + ",\n", 1)
+                new_lines.append(new_line)
+        # Rewrite file
+        write_file.close()
+        # Returning to start to rewrite original file
+        write_file = open(file_name, 'w')
+        for line in new_lines:
+            write_file.write(line)
+
+
+
 def save_table(url):
     html = get_webpage_contents(url)
     soup = BeautifulSoup(html, "html.parser")
     containers = soup.find_all("table")
+    # In case there's multiple discrete tables on the same page
     for container in containers:
-        # Saving headers
+        # Creating file
         table_name = container.find("caption").string.replace(' ', '_')
-        file = open("./tables/" + table_name + ".csv", 'w')
+        file_name = "./tables/" + table_name + ".csv"
+        file = open(file_name, 'w')
+        # Saving headers
         headers_intermediate = container.find_all("th")
         for header_intermediate in headers_intermediate:
-            # Header with button
-            try:
-                header = header_intermediate.button.contents[0]
-                if (header == None):
-                    raise Exception("No Contents")
-            except:
-                # Regular header
-                try:
-                    header = header_intermediate.string
-                    if (header == None):
-                        raise Exception("No Contents")
-                # Multi-section table header
-                except:
-                    string_candidates = header_intermediate.descendants
-                    string_assembled = ""
-                    for string_candidate in string_candidates:
-                        if type(string_candidate) == type(BeautifulSoup("<b>e</b>").b.string, 'html.parser'):
-                            string_assembled += string_candidate
-                    header = string_assembled
+            header = get_header(header_intermediate)
             file.write(header.strip() + ",")
-
-
+        # Saving table data
+        save_data(container, file_name)
 
 def download_tables(urls):
     for url in urls:
