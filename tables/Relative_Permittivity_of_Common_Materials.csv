@@ -1,5 +1,7 @@
 Material,Relative permittivity (εr),
- - 11.5,
+Air,1.0006,
+Alcohol,15 - 30,
+Alumina,8 - 11.5,
 Bakelite,3.5 - 5.5,
 Barium strontium titanate (BST),200 - 500,
 Barium titanate,120 - 160,

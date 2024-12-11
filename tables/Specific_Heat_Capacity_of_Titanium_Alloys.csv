@@ -1,5 +1,7 @@
 Trade name,UNS number,Composition,Specific heat capacity,
-523,
+Grade 1,R50250,,520,
+Grade 2,R50400,,523,
+Grade 3,R50550,,523,
 Grade 4,R50700,,530,
 Grade 5,R56400,Ti-6Al-4V,526,
 Grade 6,R54520,Ti-5Al-2.5Sn,530,

@@ -1,5 +1,7 @@
 Semiconductor,Crystal structure,Type,Relative permittivity (εr),
-I-VII,10,
+a-Sn,Diamond,IV-IV,24,
+AgBr,Sphalerite,I-VII,12.4,
+AgI,Sphalerite,I-VII,10,
 AlAs,Sphalerite,III-V,8.5,
 AlP,Sphalerite,III-V,11.6,
 AlSb,Sphalerite,III-V,10.1,

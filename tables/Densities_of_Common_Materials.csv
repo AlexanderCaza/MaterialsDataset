@@ -1,5 +1,6 @@
 Material,Density,
-m,2700,
+Air,1.293,
+Aluminum,2700,
 Brass,8730,
 Bronze,8700,
 Carbon Steel,7850,

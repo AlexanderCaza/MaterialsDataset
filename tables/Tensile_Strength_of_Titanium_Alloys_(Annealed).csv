@@ -1,5 +1,7 @@
 Trade name,UNS number,Yield strength,Ultimate strength,
-R50550,377 - 520,440,
+Grade 1,R50250,220,345,
+Grade 2,R50400,345,485,
+Grade 3,R50550,377 - 520,440,
 Grade 4,R50700,480 - 552,550,
 Grade 5,R56400,828 - 1075,897 - 1205,
 Grade 6,R54520,793 - 897,825 - 972,

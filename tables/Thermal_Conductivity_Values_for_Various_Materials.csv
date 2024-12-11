@@ -1,5 +1,7 @@
 Material,Thermal conductivity,
-m,237,
+Acrylic,0.2,
+Air,0.026,
+Aluminum,237,
 Asphalt,0.9,
 Brass,109,
 Brick,0.7,

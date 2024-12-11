@@ -1,5 +1,7 @@
 Trade name,UNS number,Composition,Brinell hardness (HB),
-,265,
+Grade 1,R50250,,120,
+Grade 3,R50550,,225,
+Grade 4,R50700,,265,
 Grade 5,R56400,Ti-6Al-4V,379,
 Grade 6,R54520,Ti-5Al-2.5Sn,320,
 Grade 7,R52400,Ti-0.2Pd,160 - 200,

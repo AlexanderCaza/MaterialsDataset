@@ -6,6 +6,7 @@
 # Imports
 # importing os module for environment variables
 import os
+from os import write
 from types import NoneType
 from xml.etree.ElementTree import fromstring, tostring
 
@@ -66,7 +67,8 @@ def get_header(header_intermediate):
                     string_assembled += string_candidate
             header = string_assembled
     finally:
-        return header
+        if header != "\n":
+            return header
 
 
 def save_data(container, file_name):
@@ -77,22 +79,19 @@ def save_data(container, file_name):
     cleanup_needed = False
     for row in rows:
         cells = row.find_all("td")
+        if (file_name == "./tables/Density_of_Precious_Metals.csv"):
+            print(row)
         if len(cells) == 1:
+            print(file_name)
             cleanup_needed = True
         for cell in cells:
             cell_data = cell.string
             if (type(cell_data) == NoneType):
                 cell_data = ""
-            # Debug
-            if (file_name == "./tables/Density_of_Precious_Metals.csv"):
-                print(cell_data)
             write_file.write(cell_data + ",")
+            # Debug
         write_file.write("\n")
-    if (file_name == "./tables/Density_of_Precious_Metals.csv"):
-        debug_file = open(file_name, 'r')
-        print(debug_file.readlines())
     if cleanup_needed == True:
-        print(file_name)
         read_file = open(file_name, 'r')
         new_lines = []
         # Cleaning up tables with subheadings embedded as "tr"s
@@ -118,6 +117,7 @@ def save_data(container, file_name):
         write_file = open(file_name, 'w')
         for line in new_lines:
             write_file.write(line)
+    write_file.close()
 
 
 
@@ -137,6 +137,7 @@ def save_table(url):
             header = get_header(header_intermediate)
             file.write(header.strip() + ",")
         file.write("\n")
+        file.close()
         # Saving table data
         save_data(container, file_name)
 

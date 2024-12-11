@@ -1,5 +1,7 @@
 Trade name,UNS number,Composition,Thermal expansion,
-550,,8.6,
+Grade 1,R50250,,8.6,
+Grade 2,R50400,,8.6,
+Grade 3,R50550,,8.6,
 Grade 4,R50700,,8.6,
 Grade 5,R56400,Ti-6Al-4V,8.6,
 Grade 6,R54520,Ti-5Al-2.5Sn,9.4,

@@ -1,5 +1,6 @@
 Material,Type,Density,
-eramic,3600,
+Air (dry),Gas,1.293,
+,Ceramic,3600,
 ,Ceramic,3720,
 ,Ceramic,3890,
 ,Ceramic,3870,

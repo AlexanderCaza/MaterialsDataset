@@ -1,5 +1,7 @@
 Trade name,UNS number,Composition,Young’s modulus,
-550,,105,
+Grade 1,R50250,,105,
+Grade 2,R50400,,105,
+Grade 3,R50550,,105,
 Grade 4,R50700,,105,
 Grade 5,R56400,Ti-6Al-4V,106 - 114,
 Grade 6,R54520,Ti-5Al-2.5Sn,110 - 125,

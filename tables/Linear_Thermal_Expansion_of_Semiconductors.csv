@@ -1,5 +1,7 @@
 Semiconductor,Crystal structure,Type,Thermal expansion,
-Sphalerite,III-V,4.2,
+a-Sn,Diamond,IV-IV,5.4,
+AlAs,Sphalerite,III-V,3.5,
+AlSb,Sphalerite,III-V,4.2,
 C,Diamond,IV-IV,1.18,
 CdS,Sphalerite,II-VI,4.7,
 CdSe,Sphalerite,II-VI,3.8,
