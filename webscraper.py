@@ -82,10 +82,12 @@ def save_data(container, file_name):
         if len(cells) == 1:
             cleanup_needed = True
         for cell in cells:
-            cell_data = cell.string
-            if (type(cell_data) == NoneType):
-                cell_data = ""
-            write_file.write(cell_data + ",")
+            data_candidates = cell.descendants
+            cell_data_assembled = ""
+            for data_candidate in data_candidates:
+                if type(data_candidate) == type(BeautifulSoup("<b>e</b>", 'html.parser').b.string):
+                    cell_data_assembled += data_candidate
+            write_file.write(cell_data_assembled + ",")
         write_file.write("\n")
     if cleanup_needed:
         # Cleaning up tables with subheadings embedded as "tr"s
