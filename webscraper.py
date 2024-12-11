@@ -70,7 +70,7 @@ def get_header(header_intermediate):
 
 
 def save_data(container, file_name):
-    write_file = open(file_name, 'w')
+    write_file = open(file_name, 'a')
     table_body = container.find("tbody")
     rows = table_body.find_all("tr")
     # Whether file has subheadings embedded as "tr"s
