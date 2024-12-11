@@ -4,16 +4,16 @@
 # Created: Dec 6, 2024
 
 # Imports
-# importing os module for environment variables
+# Importing os module for environment variables
 import os
-from os import write
 from types import NoneType
-from xml.etree.ElementTree import fromstring, tostring
 
-# importing necessary functions from dotenv library
+# Importing necessary functions from dotenv library
 from dotenv import load_dotenv, dotenv_values
-import requests;
 from bs4 import BeautifulSoup
+
+# importing requests to handle making HTTP GET requests
+import requests
 
 def get_webpage_contents(url):
     request = requests.get(url)
@@ -72,47 +72,42 @@ def get_header(header_intermediate):
 
 
 def save_data(container, file_name):
-    write_file = open(file_name, 'a')
+    write_file = open(file_name, 'a+')
     table_body = container.find("tbody")
     rows = table_body.find_all("tr")
     # Whether file has subheadings embedded as "tr"s
     cleanup_needed = False
     for row in rows:
         cells = row.find_all("td")
-        if (file_name == "./tables/Density_of_Precious_Metals.csv"):
-            print(row)
         if len(cells) == 1:
-            print(file_name)
             cleanup_needed = True
         for cell in cells:
             cell_data = cell.string
             if (type(cell_data) == NoneType):
                 cell_data = ""
             write_file.write(cell_data + ",")
-            # Debug
         write_file.write("\n")
-    if cleanup_needed == True:
-        read_file = open(file_name, 'r')
-        new_lines = []
+    if cleanup_needed:
         # Cleaning up tables with subheadings embedded as "tr"s
         # Returning to start of file
-        read_file.seek(0)
-        # Reading first line and adding additional
+        write_file.flush()
+        read_file = open(file_name, 'r')
+        new_lines = []
+        # Reading first line and adding additional info header
         header = read_file.readline()
         new_header = header.replace("\n", "Additional_Info,\n")
         # Adding new header
         new_lines.append(new_header)
         # Going through data rows and shifting subheaders to Additional Info column
-        subheader = ","
+        subheader = ",\n"
         for line in read_file.readlines():
             if line.count(',') < 2:
                 subheader = line
             else:
-                subheader = ","
-                new_line = line.replace(",\n", subheader + "\n", 1)
+                new_line = line.replace("\n", subheader)
                 new_lines.append(new_line)
         # Rewrite file
-        write_file.close()
+        read_file.close()
         # Returning to start to rewrite original file
         write_file = open(file_name, 'w')
         for line in new_lines:
