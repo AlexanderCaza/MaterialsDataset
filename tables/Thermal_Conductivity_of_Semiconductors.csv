@@ -1,4 +1,5 @@
-Semiconductor,Crystal structure,Type,Conductivity,,
+Semiconductor,Crystal structure,Type,Conductivity,
+
 AlP,Sphalerite,III-V,92,
 AlSb,Sphalerite,III-V,60,
 BN,Sphalerite,III-V,20,

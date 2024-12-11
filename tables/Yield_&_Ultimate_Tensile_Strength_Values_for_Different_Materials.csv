@@ -1,4 +1,5 @@
-Material,Yield strength,Ultimate strength,50,120 - 570,
+Material,Yield strength,Ultimate strength,
+0,120 - 570,
 Aluminum alloys,100 - 550,200 - 800,
 Beryllium,100 - 300,200 - 400,
 Brass,200 - 550,350 - 800,

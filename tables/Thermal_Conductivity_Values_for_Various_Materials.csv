@@ -1,4 +1,5 @@
-Material,Thermal conductivity,um,237,
+Material,Thermal conductivity,
+m,237,
 Asphalt,0.9,
 Brass,109,
 Brick,0.7,

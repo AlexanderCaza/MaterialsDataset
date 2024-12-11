@@ -45,18 +45,17 @@ def get_urls_from_container(html, url):
 
 
 def get_header(header_intermediate):
+    header = None
     try:
         header = header_intermediate.button.contents[0]
         if (header == None):
             raise Exception("No Contents")
-        return header
     except:
         # Regular header
         try:
             header = header_intermediate.string
             if (header == None):
                 raise Exception("No Contents")
-            return header
         # Multi-section table header
         except:
             # header with button
@@ -66,11 +65,12 @@ def get_header(header_intermediate):
                 if type(string_candidate) == type(BeautifulSoup("<b>e</b>", 'html.parser').b.string):
                     string_assembled += string_candidate
             header = string_assembled
-            return header
+    finally:
+        return header
 
 
 def save_data(container, file_name):
-    write_file = open(file_name, 'a')
+    write_file = open(file_name, 'w')
     table_body = container.find("tbody")
     rows = table_body.find_all("tr")
     # Whether file has subheadings embedded as "tr"s
@@ -83,11 +83,16 @@ def save_data(container, file_name):
             cell_data = cell.string
             if (type(cell_data) == NoneType):
                 cell_data = ""
-            print(file_name)
-            print(cell_data)
+            # Debug
+            if (file_name == "./tables/Density_of_Precious_Metals.csv"):
+                print(cell_data)
             write_file.write(cell_data + ",")
         write_file.write("\n")
+    if (file_name == "./tables/Density_of_Precious_Metals.csv"):
+        debug_file = open(file_name, 'r')
+        print(debug_file.readlines())
     if cleanup_needed == True:
+        print(file_name)
         read_file = open(file_name, 'r')
         new_lines = []
         # Cleaning up tables with subheadings embedded as "tr"s
@@ -99,12 +104,13 @@ def save_data(container, file_name):
         # Adding new header
         new_lines.append(new_header)
         # Going through data rows and shifting subheaders to Additional Info column
-        subheader = ""
+        subheader = ","
         for line in read_file.readlines():
             if line.count(',') < 2:
                 subheader = line
             else:
-                new_line = line.replace("\n", subheader + ",\n", 1)
+                subheader = ","
+                new_line = line.replace(",\n", subheader + "\n", 1)
                 new_lines.append(new_line)
         # Rewrite file
         write_file.close()
@@ -130,6 +136,7 @@ def save_table(url):
         for header_intermediate in headers_intermediate:
             header = get_header(header_intermediate)
             file.write(header.strip() + ",")
+        file.write("\n")
         # Saving table data
         save_data(container, file_name)
 
