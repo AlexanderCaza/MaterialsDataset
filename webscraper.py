@@ -87,7 +87,7 @@ def save_data(container, file_name):
             for data_candidate in data_candidates:
                 if type(data_candidate) == type(BeautifulSoup("<b>e</b>", 'html.parser').b.string):
                     cell_data_assembled += data_candidate
-            write_file.write(cell_data_assembled + ",")
+            write_file.write("\"" + cell_data_assembled + "\",")
         write_file.write("\n")
     if cleanup_needed:
         # Cleaning up tables with subheadings embedded as "tr"s
