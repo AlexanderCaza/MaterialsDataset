@@ -1,0 +1,4 @@
+Electrical conductivity - power changes - Verify
+Thermal - as above, verify
+Density - Inconsistent units
+Viscosity - Different units
