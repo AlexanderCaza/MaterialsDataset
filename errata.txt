@@ -1,4 +1,4 @@
-Electrical conductivity - power changes - Verify
-Thermal - as above, verify
-Density - Inconsistent units
-Viscosity - Different units
+Electrical conductivity - power changes - Verify - FIXED
+Thermal - as above, verify - FIXED - no issue
+Density - Inconsistent units - FIXED
+Viscosity - Different units - FIXED
